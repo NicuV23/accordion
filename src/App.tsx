@@ -1,15 +1,5 @@
-import { useState } from "react";
-import "./index.css";
-
-interface Item {
-  title: string;
-  text: string;
-  num: number;
-}
-
-interface AccordionProps {
-  data: Omit<Item, "num">[];
-}
+import React from "react";
+import Accordion from "./components/Accordion";
 
 const faqs = [
   {
@@ -30,34 +20,6 @@ const App: React.FC = () => {
   return (
     <div>
       <Accordion data={faqs} />
-    </div>
-  );
-};
-
-const Accordion: React.FC<AccordionProps> = ({ data }) => {
-  return (
-    <div className="accordion">
-      {data.map((el, i) => (
-        <AccordionItem title={el.title} text={el.text} num={i} key={el.title} />
-      ))}
-    </div>
-  );
-};
-
-const AccordionItem: React.FC<Item> = ({ num, title, text }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  function handleToggle() {
-    setIsOpen((isOpen) => !isOpen);
-  }
-
-  return (
-    <div className={`item ${isOpen ? "open" : ""}`} onClick={handleToggle}>
-      <p className="number">{num < 9 ? `0${num + 1}` : num + 1}</p>
-      <p className="title">{title}</p>
-      <p className="icon">{isOpen ? "-" : "+"}</p>
-
-      {isOpen && <div className="content-box">{text}</div>}
     </div>
   );
 };
